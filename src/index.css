@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.app-background {
+  background-image: url('/background.jpg');
+  background-size: cover;       /* Cover entire area */
+  background-position: top;  /* Center the image */
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Makes it fixed when scrolling */
+  width: 100%;
+  height: 160vh;               /* Full viewport height */
+}
+
+.navbar{
+  display: flex;
+  justify-content: space-around;
+  padding-top: 15px;
+}
+
+.navbar-list {
+  display: flex;
+  align-items: center;       /* vertically center items */
+  justify-content: space-around; 
+  padding: 20px 20px;
+  gap: 10px;
+}
+
+.navbar-list h1 {
+  color: white;
+  margin: 0 10px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 18px;
+}
+
+.navbar img {
+  width: 50px; /* size of your logo */
+  height: 30px;
+}
+
+.main-page {
+  display: flex;
+  flex-direction: column;   /* stack children vertically */
+  align-items: center;      /* center horizontally */
+  gap: 20px;                /* space between h1 and button */
+}
+
+
+.main-page h1 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: normal;
+  font-style: normal;
+  color: white;
+}
+
+button{
+  border-radius: 30px;
+  padding: 15px 20px 15px 20px;
+  width: 250px;
+  color: white;
+  background: #089e1e;
+  border: none;
+  font-size: medium;
+  text-align: center;
+}
+
+.button-wrapper {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;  /* stack button + docs vertically */
+  align-items: center;     /* horizontally center children */
+  gap: 20px;               /* space between button and main-docs */
+}
+
+
+.main-docs{
+  background-color: white;
+  margin: 20px;
+  border-radius: 12px ;
+  padding: 20px 30px 20px 30px
+}
+.main-docs p{
+  color: #0009;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 23px;
+  max-width:600px;
+  text-align: center;
+}
