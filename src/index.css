@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
 
-body, html, #root {
+body,
+html,
+#root {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -10,48 +12,184 @@ body, html, #root {
 
 .app-background {
   background-image: url('/background.jpg');
-  background-size: cover;       /* Cover entire area */
-  background-position: top;  /* Center the image */
+  background-size: cover;
+  /* Cover entire area */
+  background-position: top;
+  /* Center the image */
   background-repeat: no-repeat;
-  background-attachment: fixed; /* Makes it fixed when scrolling */
+  background-attachment: fixed;
+  /* Makes it fixed when scrolling */
   width: 100%;
-  height: 160vh;               /* Full viewport height */
+  height: 160vh;
+  /* Full viewport height */
 }
 
-.navbar{
+/* Navbar base */
+.navbar {
   display: flex;
-  justify-content: space-around;
-  padding-top: 15px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  position: relative;
 }
 
+/* Logo (desktop only) */
+.logo img {
+  width: 50px;
+  height: 30px;
+}
+
+/* Desktop Nav Links */
 .navbar-list {
   display: flex;
-  align-items: center;       /* vertically center items */
-  justify-content: space-around; 
-  padding: 20px 20px;
-  gap: 10px;
+  align-items: center;
+  gap: 20px;
 }
 
 .navbar-list h1 {
   color: white;
-  margin: 0 10px;
   font-size: 16px;
   cursor: pointer;
-  font-weight: 500;
-  font-style: normal;
-  line-height: 18px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.navbar img {
-  width: 50px; /* size of your logo */
-  height: 30px;
+.language img {
+  width: 25px;
+  height: 20px;
+}
+
+/* Mobile Nav Container */
+.mobile-nav {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.hamburger-icon {
+  width: 28px;
+  height: 28px;
+  color: white;
+}
+
+.mobile-menu {
+  position: absolute;
+  top: 80px;
+  left: 24px;
+  width: 150px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 45px;
+  box-shadow: 0px 4px 10px #0000001a;
+  transform-origin: top;
+  /* roll from top */
+  transform: scaleY(0);
+  /* collapsed */
+  transition: transform 0.25s ease;
+  /* smooth roll */
+  z-index: 1000;
+}
+
+.mobile-menu.open {
+  transform: scaleY(1);
+  /* fully open */
+}
+
+
+.mobile-menu h1 {
+  color: #000000e6;
+  /* ✅ black text */
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+
+/* --- Media Queries --- */
+
+/* Mobile (≤1024px): hide desktop, show hamburger + english */
+@media (max-width: 1024px) {
+
+  .app-background {
+  background-image: url('/background.jpg');
+  background-size: cover;
+  /* Cover entire area */
+  background-position: top;
+  /* Center the image */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* Makes it fixed when scrolling */
+  width: 100%;
+  height: fit-content;
+  /* Full viewport height */
+}
+
+
+  .logo {
+    display: none;
+  }
+
+  .navbar-list {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: flex;
+  }
+
+  .english-mobile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .english-mobile h1 {
+    font-weight: normal !important;
+    /* force normal */
+    font-size: 12px;
+    font-style: normal;
+    margin: 0;
+    color: white;
+  }
+
+  .english-mobile .language img {
+    width: 20px;
+    height: 15px;
+  }
+}
+
+/* Desktop (≥1440px): normal full navbar */
+@media (min-width: 1440px) {
+  .navbar-list {
+    display: flex;
+  }
+
+  .logo {
+    display: block;
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: none;
+  }
 }
 
 .main-page {
   display: flex;
-  flex-direction: column;   /* stack children vertically */
-  align-items: center;      /* center horizontally */
-  gap: 20px;                /* space between h1 and button */
+  flex-direction: column;
+  /* stack children vertically */
+  align-items: center;
+  /* center horizontally */
+  gap: 20px;
+  /* space between h1 and button */
 }
 
 
@@ -63,7 +201,7 @@ body, html, #root {
   color: white;
 }
 
-button{
+button {
   border-radius: 30px;
   padding: 15px 20px 15px 20px;
   width: 250px;
@@ -77,24 +215,27 @@ button{
 .button-wrapper {
   margin-top: 20px;
   display: flex;
-  flex-direction: column;  /* stack button + docs vertically */
-  align-items: center;     /* horizontally center children */
-  gap: 20px;               /* space between button and main-docs */
+  flex-direction: column;
+  /* stack button + docs vertically */
+  align-items: center;
+  /* horizontally center children */
+  gap: 20px;
+  /* space between button and main-docs */
 }
 
-
-.main-docs{
+.main-docs {
   background-color: white;
   margin: 20px;
-  border-radius: 12px ;
+  border-radius: 12px;
   padding: 20px 30px 20px 30px
 }
-.main-docs p{
+
+.main-docs p {
   color: #0009;
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
   line-height: 23px;
-  max-width:600px;
+  max-width: 600px;
   text-align: center;
 }
