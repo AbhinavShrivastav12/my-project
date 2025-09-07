@@ -2,7 +2,7 @@ import React from 'react'
 
 const Button = () => {
   return (
-    <button>
+    <button className='button-main'>
         Close and Go Back
     </button>
   )

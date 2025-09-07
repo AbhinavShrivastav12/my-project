@@ -1,7 +1,19 @@
+import { useEffect, useState } from "react";
 import Button from "./components/Button";
 import NavBar from "./components/NavBar";
 import "./index.css";
+// const API_URL = process.env.REACT_APP_LOCALHOST;
+const API_URL = import.meta.env.VITE_LOCALHOST;
+
 function App() {
+  const [users, setUsers] = useState([]);
+ useEffect(() => {
+    fetch(`${API_URL}/users`)
+      .then((res) => res.json())
+      .then((data) => setUsers(data))
+      .catch((err) => console.error(err));
+  }, []);
+  console.log(users)
   return (
     <main>
       <div className="app-background">
