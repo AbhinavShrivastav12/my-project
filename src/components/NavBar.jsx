@@ -3,21 +3,38 @@ import PopUpModel from "./PopUpModel";
 
 const API_URL = import.meta.env.VITE_LOCALHOST;
 
-const NavBar = () => {
+const NavBar = ({ selectedLanguage, setSelectedLanguage }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("en"); // for API
-  const [displayLanguage, setDisplayLanguage] = useState("English"); // for UI
-  const [translations, setTranslations] = useState({});
+  const [displayLanguage, setDisplayLanguage] = useState(
+    selectedLanguage === "en" ? "English" : "Svenska"
+  );
+  const [navItems, setNavItems] = useState([]);
 
-  // Fetch translations whenever selectedLanguage changes
+  // Update displayLanguage when selectedLanguage changes from parent
+  useEffect(() => {
+    setDisplayLanguage(selectedLanguage === "en" ? "English" : "Svenska");
+  }, [selectedLanguage]);
+
+  // Fetch nav translations whenever selectedLanguage changes
   useEffect(() => {
     const fetchTranslations = async () => {
       try {
-        const response = await fetch(`${API_URL}/translations/${selectedLanguage}`);
+        const response = await fetch(`${API_URL}/api/translations/${selectedLanguage}`);
         if (!response.ok) throw new Error("Failed to fetch translations");
         const data = await response.json();
-        setTranslations(data);
+
+        let navValues = [];
+        if (Array.isArray(data)) {
+          navValues = data
+            .filter((item) => item.key.startsWith("nav."))
+            .map((item) => item.value);
+        } else if (typeof data === "object") {
+          const navKeys = ["Home", "Order", "Our Customer", "About Us", "Contact Us"];
+          navValues = navKeys.map((key) => data[key] || key);
+        }
+
+        setNavItems(navValues);
       } catch (error) {
         console.error(error);
       }
@@ -26,20 +43,11 @@ const NavBar = () => {
     fetchTranslations();
   }, [selectedLanguage]);
 
-  // Handle language selection from popup
   const handleSelect = (lang) => {
-    if (lang === "English") {
-      setSelectedLanguage("en");
-      setDisplayLanguage("English");
-    } else if (lang === "Svenska") {
-      setSelectedLanguage("sv");
-      setDisplayLanguage("Svenska");
-    }
+    if (lang === "English") setSelectedLanguage("en");
+    if (lang === "Svenska") setSelectedLanguage("sv");
     setShowPopup(false);
   };
-
-  // Get translation or fallback to key itself
-  const t = (key) => translations[key] || key;
 
   return (
     <nav className="navbar">
@@ -51,17 +59,16 @@ const NavBar = () => {
 
         <div className="navbar-list">
           <ul>
-            <li><a href="#">{t("Home")}</a></li>
-            <li><a href="#">{t("Order")}</a></li>
-            <li><a href="#">{t("Our Customer")}</a></li>
-            <li><a href="#">{t("About Us")}</a></li>
-            <li><a href="#">{t("Contact Us")}</a></li>
+            {navItems.map((item, index) => (
+              <li key={index}>
+                <a href="#">{item}</a>
+              </li>
+            ))}
 
-            {/* Language Selector */}
             <li className="language-selector">
               <a
                 onClick={() => setShowPopup(!showPopup)}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "5px" }}
               >
                 {displayLanguage}
                 <picture className="language">
@@ -71,7 +78,6 @@ const NavBar = () => {
                   />
                 </picture>
               </a>
-
               {showPopup && <PopUpModel onSelect={handleSelect} />}
             </li>
           </ul>
@@ -89,19 +95,14 @@ const NavBar = () => {
             stroke="currentColor"
             className="hamburger-icon"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
         </div>
 
-        {/* Mobile Language Selector */}
         <div className="english-mobile language-selector">
           <div
             onClick={() => setShowPopup(!showPopup)}
-            style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+            style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "5px" }}
           >
             <h1>{displayLanguage}</h1>
             <picture className="language">
@@ -120,11 +121,11 @@ const NavBar = () => {
       <div className={`mobile-menu ${isOpen ? "open" : ""}`}>
         <div className="mobile-menu-inner">
           <ul>
-            <li><a href="#">{t("Home")}</a></li>
-            <li><a href="#">{t("Order")}</a></li>
-            <li><a href="#">{t("Our Customer")}</a></li>
-            <li><a href="#">{t("About Us")}</a></li>
-            <li><a href="#">{t("Contact Us")}</a></li>
+            {navItems.map((item, index) => (
+              <li key={index}>
+                <a href="#">{item}</a>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
