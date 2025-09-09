@@ -1,4 +1,3 @@
-// App.jsx
 import { useEffect, useState } from "react";
 import Button from "./components/Button";
 import NavBar from "./components/NavBar";
@@ -8,9 +7,8 @@ const API_URL = import.meta.env.VITE_LOCALHOST;
 
 function App() {
   const [content, setContent] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState("en"); // Current language
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
 
-  // Fetch translations for paragraphs
   useEffect(() => {
     const fetchContent = async () => {
       try {
@@ -19,7 +17,6 @@ function App() {
 
         const data = await response.json();
 
-        // Filter only paragraph keys
         const paragraphs = Array.isArray(data)
           ? data.filter((item) => item.key.startsWith("para.")).map((item) => item.value)
           : Object.keys(data)
@@ -36,10 +33,8 @@ function App() {
     fetchContent();
   }, [selectedLanguage]);
 
-  // Render paragraphs with clickable "here" / "här"
   const renderParagraph = (para) => {
     const clickableWord = selectedLanguage === "en" ? "here" : "här";
-    // Match the word with quotes around it
     const regex = new RegExp(`"${clickableWord}"`, "i");
     const parts = para.split(regex);
 
@@ -48,12 +43,7 @@ function App() {
     return (
       <p>
         {parts[0]}
-        <a
-          href="#" // Replace with your actual link
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: "blue" }}
-        >
+        <a href="#" target="_blank" rel="noopener noreferrer" style={{ color: "blue" }}>
           {clickableWord}
         </a>
         {parts[1]}
@@ -62,18 +52,20 @@ function App() {
   };
 
   return (
-    <main>
+    <main className="scroll-wrapper">
+      {/* Fixed background image */}
+      <div className="background-layer">
+        <img src="/background.jpg" alt="Background" />
+      </div>
+
+      {/* App content */}
       <div className="app-background">
-        <NavBar
-          selectedLanguage={selectedLanguage}
-          setSelectedLanguage={setSelectedLanguage}
-        />
+        <NavBar selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} />
 
         <div className="main-page">
           <h1>{selectedLanguage === "en" ? "Terms" : "Villkor"}</h1>
 
           <div className="button-wrapper">
-            {/* Dynamic button */}
             <Button lang={selectedLanguage} />
 
             <div className="main-docs">
