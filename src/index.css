@@ -1,11 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+/* --- Global styles --- */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch; /* iOS-like bounce effect */
-  overscroll-behavior: contain; /* enables the bounce instead of page chaining */
+  overflow-y: scroll;                  /* allow scroll */
+  -webkit-overflow-scrolling: touch;   /* iOS/Android bounce */
+  overscroll-behavior-y: contain;      /* bounce instead of flat stop */
+  background-color: #0b1d3a;           /* fallback color */
+  background-image: url('/background.jpg');
+  background-size: cover;               /* fit without stretching */
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: scroll;        /* mobile safe */
+  font-family: 'Open Sans', sans-serif;
 }
 
 ul {
@@ -19,28 +28,21 @@ a {
   color: inherit;
 }
 
+/* --- App wrapper --- */
 .app-background {
-  background-image: url('/background.jpg');
-  background-size: cover;
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  min-height: 100vh;
-  overflow-y: auto;              /* make it scrollable */
-  -webkit-overflow-scrolling: touch; /* bounce */
-  overscroll-behavior: contain;  /* bounce instead of flat stop */
+  min-height: 100dvh;                  /* dynamic viewport height */
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 40px;                /* space for last line */
 }
 
-
-
-/* Navbar base */
+/* --- Navbar base --- */
 .navbar {
   display: flex;
   justify-content: space-between;
   padding: 15px 20px;
 }
 
-/* Logo (desktop only) */
 .logo img {
   width: 50px;
   height: 30px;
@@ -51,12 +53,11 @@ a {
   height: 20px;
 }
 
-/* Language selector relative positioning for popup */
 .language-selector {
   position: relative;
 }
 
-/* Mobile Nav Container */
+/* --- Mobile Nav --- */
 .mobile-nav {
   display: none;
   justify-content: space-between;
@@ -67,28 +68,28 @@ a {
 }
 
 .hamburger {
-  margin-right: 15px; /* more space from right */
+  margin-right: 15px;
 }
 
 .hamburger-icon {
-  width: 32px; /* slightly larger */
+  width: 32px;
   height: 32px;
   color: white;
 }
 
 .mobile-nav .english-mobile h1 {
-  font-size: 16px; /* slightly larger text */
+  font-size: 16px;
   font-weight: 600;
   margin: 0;
   color: white;
 }
 
 .mobile-nav .english-mobile .language img {
-  width: 18px; /* slightly bigger flag */
+  width: 18px;
   height: 14px;
 }
 
-/* Mobile Menu */
+/* --- Mobile Menu --- */
 .mobile-menu {
   position: absolute;
   top: 80px;
@@ -124,7 +125,7 @@ a {
   font-weight: 600;
 }
 
-/* Popup Dropdown */
+/* --- Popup Dropdown --- */
 .popup-dropdown {
   position: absolute;
   margin-top: 10px;
@@ -135,11 +136,10 @@ a {
   border-radius: 6px;
   box-shadow: 0 4px 10px #0000001a;
   z-index: 100;
-  width: 100px; /* fixed unit from 100 to 100px */
+  width: 100px;
   padding: 4px 0;
 }
 
-/* Dropdown list */
 .popup-dropdown ul {
   list-style: none;
   margin: 0;
@@ -149,7 +149,6 @@ a {
   gap: 5px; 
 }
 
-/* Dropdown items */
 .popup-dropdown li {
   display: flex;
   flex-direction: row;
@@ -166,21 +165,68 @@ a {
   background: #f0f0f0;
 }
 
-/* Flags */
 .popup-dropdown .flag {
   width: 16px;
   height: 12px;
   object-fit: cover;
 }
 
+/* --- Main page --- */
+.main-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.main-page h1 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: normal;
+  font-style: normal;
+  color: white;
+}
+
+.button-main {
+  border-radius: 30px;
+  padding: 15px 20px;
+  width: 250px;
+  color: white;
+  background: #089e1e;
+  border: none;
+  font-size: medium;
+  text-align: center;
+}
+
+.button-wrapper {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.main-docs {
+  background-color: white;
+  margin: 20px;
+  border-radius: 12px;
+  padding: 20px 30px;
+}
+
+.main-docs p {
+  color: #0009;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 23px;
+  max-width: 600px;
+  text-align: center;
+}
+
 /* --- Media Queries --- */
 
-/* Mobile and tablet ≤1024px */
+/* Mobile/tablet ≤1024px */
 @media (max-width: 1024px) {
-  .app-background {
-    height: fit-content;
-  }
-
   .logo {
     display: none;
   }
@@ -233,110 +279,4 @@ a {
   a {
     color: white;
   }
-   .app-background {
-    background-attachment: fixed; /* looks nice on desktop */
-  }
-
-  .navbar-list > ul {
-    display: flex;
-    gap: 40px;
-    align-items: center;
-  }
-
-  .english {
-    display: flex;
-    gap: 20px;
-    position: relative;
-  }
-
-  .main-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin: auto;
-    padding: 30px 0;
-    max-width: 1000px;
-  }
-
-  .navbar-list {
-    display: flex;
-    justify-content: center;
-  }
-
-  .logo {
-    display: block;
-  }
-
-  .mobile-nav {
-    display: none;
-  }
-
-  .mobile-menu {
-    display: none;
-  }
-
-  .english .popup-dropdown li {
-    font-size: 12px;
-    padding: 5px 10px;
-    gap: 6px;
-  }
-
-  .english .popup-dropdown .flag {
-    width: 16px;
-    height: 12px;
-  }
-}
-
-/* Main page */
-.main-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding-bottom: 40px;
-}
-
-.main-page h1 {
-  font-size: 24px;
-  font-weight: 700;
-  line-height: normal;
-  font-style: normal;
-  color: white;
-}
-
-.button-main {
-  border-radius: 30px;
-  padding: 15px 20px;
-  width: 250px;
-  color: white;
-  background: #089e1e;
-  border: none;
-  font-size: medium;
-  text-align: center;
-}
-
-.button-wrapper {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.main-docs {
-  background-color: white;
-  margin: 20px;
-  border-radius: 12px;
-  padding: 20px 30px;
-}
-
-.main-docs p {
-  color: #0009;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 23px;
-  max-width: 600px;
-  text-align: center;
 }
