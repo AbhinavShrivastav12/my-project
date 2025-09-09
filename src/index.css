@@ -267,7 +267,7 @@ a {
     padding: 5px 10px;
     gap: 6px;
   }
-
+m
   .english-mobile .popup-dropdown .flag {
     width: 15px;
     height: 12px;
@@ -279,4 +279,56 @@ a {
   a {
     color: white;
   }
+
+  .main-nav {
+    display: flex;
+    justify-content: space-between;  /* logo left, links right */
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;               /* optional max width */
+    margin: auto;
+    padding: 20px 40px;
+  }
+
+  .logo {
+    display: block;
+  }
+
+  .navbar-list {
+    display: flex;
+    align-items: center;
+    gap: 40px;                       /* space between links */
+  }
+
+  .navbar-list ul {
+    display: flex;
+    align-items: center;
+    gap: 20px;                       /* space between each li */
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar-list li a {
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s;
+  }
+
+  .navbar-list li a:hover {
+    color: #089e1e;                  /* highlight on hover */
+  }
+
+  .language-selector {
+    margin-left: 20px;                /* separate from links */
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: none;
+  }
 }
+
