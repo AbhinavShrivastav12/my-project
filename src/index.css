@@ -23,11 +23,12 @@ a {
 .app-background {
   background-image: url('/background.jpg');
   background-size: cover;
-  background-position: top;
+  background-position: top center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  width: 100%;
+  background-attachment: scroll; /* change from fixed on mobile */
+  min-height: 100vh; /* always cover full viewport height */
 }
+
 
 /* Navbar base */
 .navbar {
@@ -228,6 +229,9 @@ a {
 @media (min-width: 1025px) {
   a {
     color: white;
+  }
+   .app-background {
+    background-attachment: fixed; /* looks nice on desktop */
   }
 
   .navbar-list > ul {
