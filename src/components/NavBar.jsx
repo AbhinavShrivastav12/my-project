@@ -11,12 +11,12 @@ const NavBar = ({ selectedLanguage, setSelectedLanguage }) => {
   );
   const [navItems, setNavItems] = useState([]);
 
-  // Update displayLanguage when selectedLanguage changes from parent
+  // Update displayLanguage when parent changes
   useEffect(() => {
     setDisplayLanguage(selectedLanguage === "en" ? "English" : "Svenska");
   }, [selectedLanguage]);
 
-  // Fetch nav translations whenever selectedLanguage changes
+  // Fetch nav translations
   useEffect(() => {
     const fetchTranslations = async () => {
       try {
